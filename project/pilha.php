@@ -5,7 +5,7 @@ function funcao1()
     echo 'Entrei na função 1' . PHP_EOL;
     try {
         funcao2();
-    } catch (RuntimeException | DivisionByZeroError $e) {
+    } catch (Throwable $e) {
         echo $e->getMessage() . PHP_EOL; // O tipo de exceção
         echo $e->getLine() . PHP_EOL; // A linha onde ocorreu a exceção
         echo $e->getTraceAsString() . PHP_EOL; // Pinha de execução - call stack
@@ -18,13 +18,9 @@ function funcao2()
 {
     echo 'Entrei na função 2' . PHP_EOL;
 
-    $divisao = intdiv(5, 0);
-    $arrayFixo = new SplFixedArray(2);
-    $arrayFixo[3] = 'Valor';
+    intdiv(1, 0);
+    throw new BadFunctionCallException('Essa é a mensagem de exceção');
 
-    for ($i = 1; $i <= 5; $i++) {
-        echo $i . PHP_EOL;
-    }
     echo 'Saindo da função 2' . PHP_EOL;
 }
 
